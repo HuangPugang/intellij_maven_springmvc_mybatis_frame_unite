@@ -1,10 +1,13 @@
 package org.andy.shop.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class UserInfo {
 	private Integer id;
 
+	@SerializedName("user_name")
 	private String uname;
 
 	private Integer unumber;
