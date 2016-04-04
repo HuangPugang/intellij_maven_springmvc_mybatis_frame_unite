@@ -1,7 +1,9 @@
 package org.andy.shop.dao;
 
 import org.andy.shop.model.CourseInfo;
+import org.springframework.stereotype.Repository;
 
+@Repository("courseInfoMapper")
 public interface CourseInfoMapper {
     int deleteByPrimaryKey(Integer id);
 

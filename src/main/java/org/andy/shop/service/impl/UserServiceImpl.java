@@ -5,8 +5,9 @@ import java.util.List;
 import org.andy.shop.dao.UserInfoMapper;
 import org.andy.shop.model.UserInfo;
 import org.andy.shop.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * 创建时间：2015-1-27 下午5:22:59
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
-	@Autowired
+	@Resource(name = "userInfoMapper")
 	private UserInfoMapper userInfoMapper;
 
 	public UserInfo getUserById(int id) {

@@ -3,7 +3,9 @@ package org.andy.shop.dao;
 import java.util.List;
 
 import org.andy.shop.model.UserInfo;
+import org.springframework.stereotype.Repository;
 
+@Repository("userInfoMapper")
 public interface UserInfoMapper {
     int deleteByPrimaryKey(Integer id);
 

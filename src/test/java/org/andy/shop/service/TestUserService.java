@@ -19,7 +19,7 @@ import com.alibaba.fastjson.JSON;
  * @version 2.2
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring-servlet.xml" })
+@ContextConfiguration(locations = {"classpath:springmvc.xml"})
 public class TestUserService {
 
 	private static final Logger LOGGER = Logger
