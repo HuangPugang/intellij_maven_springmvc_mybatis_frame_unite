@@ -1,5 +1,6 @@
 package org.andy.shop.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -9,7 +10,6 @@ public class UserInfo {
 
 	@SerializedName("user_name")
 	private String uname;
-
 	private Integer unumber;
 
 	private List<CourseInfo> courseInfos;

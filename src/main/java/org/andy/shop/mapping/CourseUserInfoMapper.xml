@@ -3,8 +3,8 @@
 <mapper namespace="org.andy.shop.dao.CourseUserInfoMapper" >
   <resultMap id="BaseResultMap" type="org.andy.shop.model.CourseUserInfo" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="uid" property="uid" jdbcType="INTEGER" />
-    <result column="cid" property="cid" jdbcType="INTEGER" />
+    <baseResult column="uid" property="uid" jdbcType="INTEGER" />
+    <baseResult column="cid" property="cid" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, uid, cid
