@@ -1,0 +1,3 @@
+# intellij_maven_springmvc_mybatis_frame_unite
+
+intellij maven 整合了springMVC mybatis，拿来可以直接用
