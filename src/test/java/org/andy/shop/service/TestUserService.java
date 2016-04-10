@@ -3,6 +3,7 @@ package org.andy.shop.service;
 import java.util.List;
 import java.util.Set;
 
+import com.googlecode.ehcache.annotations.Cacheable;
 import org.andy.common.StatusCode;
 import org.andy.redis.RedisService;
 import org.andy.shop.model.UserInfo;
@@ -40,11 +41,12 @@ public class TestUserService {
 
     @Test
     public void testQueryById1() {
-        UserInfo userInfo = userService.getUserById(1);
+        UserInfo userInfo = userService.getUserById(0);
         LOGGER.info(JSON.toJSON(userInfo));
     }
 
     @Test
+
     public void testQueryAll() {
         List<UserInfo> userInfos = userService.getUsers();
         LOGGER.info(JSON.toJSON(userInfos));

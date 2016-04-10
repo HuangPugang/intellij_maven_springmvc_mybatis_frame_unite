@@ -1,27 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.andy.shop.dao.UserInfoMapper">
-	<resultMap id="BaseResultMap" type="UserInfo">
-		<id column="id" property="id" jdbcType="INTEGER" />
-		<result column="uname" property="uname" jdbcType="VARCHAR" />
-		<result column="unumber" property="unumber" jdbcType="INTEGER" />
-	</resultMap>
-	<sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="UserInfo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="uname" property="uname" jdbcType="VARCHAR"/>
+        <result column="unumber" property="unumber" jdbcType="INTEGER"/>
+    </resultMap>
+    <!-- 以下两个ehcache  <cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache">
+        <property name="timeToIdleSeconds" value="3600"/><!--1 hour-->
+        <property name="timeToLiveSeconds" value="3600"/><!--1 hour-->
+        <property name="maxEntriesLocalHeap" value="1000"/>
+        <property name="maxEntriesLocalDisk" value="10000000"/>
+        <property name="memoryStoreEvictionPolicy" value="LRU"/>
+    </cache>
+    <!--<cache type="org.mybatis.caches.ehcache.EhcacheCache" />-->
+
+    <sql id="Base_Column_List">
 		id, uname, unumber
 	</sql>
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
-		parameterType="java.lang.Integer">
-		select
-		<include refid="Base_Column_List" />
-		from user_info
-		where id = #{id,jdbcType=INTEGER}
-	</select>
-	<delete id="deleteByPrimaryKey" parameterType="Integer">
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap"
+            parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from user_info
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="Integer">
 		delete from
 		user_info
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" parameterType="UserInfo">
+    <insert id="insert" parameterType="UserInfo">
 		insert into user_info (id,
 		uname, unumber
 		)
@@ -30,44 +40,44 @@
 		#{unumber,jdbcType=INTEGER}
 		)
 	</insert>
-	<insert id="insertSelective" parameterType="UserInfo">
-		insert into user_info
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				id,
-			</if>
-			<if test="uname != null">
-				uname,
-			</if>
-			<if test="unumber != null">
-				unumber,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				#{id,jdbcType=INTEGER},
-			</if>
-			<if test="uname != null">
-				#{uname,jdbcType=VARCHAR},
-			</if>
-			<if test="unumber != null">
-				#{unumber,jdbcType=INTEGER},
-			</if>
-		</trim>
-	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="UserInfo">
-		update user_info
-		<set>
-			<if test="uname != null">
-				uname = #{uname,jdbcType=VARCHAR},
-			</if>
-			<if test="unumber != null">
-				unumber = #{unumber,jdbcType=INTEGER},
-			</if>
-		</set>
-		where id = #{id,jdbcType=INTEGER}
-	</update>
-	<update id="updateByPrimaryKey" parameterType="UserInfo">
+    <insert id="insertSelective" parameterType="UserInfo">
+        insert into user_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="uname != null">
+                uname,
+            </if>
+            <if test="unumber != null">
+                unumber,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="uname != null">
+                #{uname,jdbcType=VARCHAR},
+            </if>
+            <if test="unumber != null">
+                #{unumber,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="UserInfo">
+        update user_info
+        <set>
+            <if test="uname != null">
+                uname = #{uname,jdbcType=VARCHAR},
+            </if>
+            <if test="unumber != null">
+                unumber = #{unumber,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="UserInfo">
 		update user_info
 		set uname = #{uname,jdbcType=VARCHAR},
 		unumber =
@@ -75,18 +85,18 @@
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 
-	<resultMap type="UserInfo" id="UserCourseMap"
-		extends="BaseResultMap">
-		<collection property="courseInfos" javaType="list"
-			ofType="CourseInfo">
-			<id property="id" column="course_id" jdbcType="INTEGER" />
-			<result property="cname" column="cname" jdbcType="VARCHAR" />
-			<result property="caddress" column="caddress" jdbcType="VARCHAR" />
-		</collection>
+    <resultMap type="UserInfo" id="UserCourseMap"
+               extends="BaseResultMap">
+        <collection property="courseInfos" javaType="list"
+                    ofType="CourseInfo">
+            <id property="id" column="course_id" jdbcType="INTEGER"/>
+            <result property="cname" column="cname" jdbcType="VARCHAR"/>
+            <result property="caddress" column="caddress" jdbcType="VARCHAR"/>
+        </collection>
 
 
-	</resultMap>
-	<select id="selectAll" resultMap="UserCourseMap">
+    </resultMap>
+    <select id="selectAll" resultMap="UserCourseMap">
 		select u.id, u.uname,
 		u.unumber, c.id course_id, c.cname, c.caddress from user_info u left
 		join course_user_info cu on u.id = cu.uid

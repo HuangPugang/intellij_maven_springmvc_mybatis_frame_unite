@@ -1,6 +1,8 @@
 package org.andy.shop.model;
 
-public class CourseInfo {
+import java.io.Serializable;
+
+public class CourseInfo implements Serializable {
     private Integer id;
 
     private String cname;
