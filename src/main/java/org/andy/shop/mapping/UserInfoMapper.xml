@@ -3,8 +3,8 @@
 <mapper namespace="org.andy.shop.dao.UserInfoMapper">
 	<resultMap id="BaseResultMap" type="UserInfo">
 		<id column="id" property="id" jdbcType="INTEGER" />
-		<baseResult column="uname" property="uname" jdbcType="VARCHAR" />
-		<baseResult column="unumber" property="unumber" jdbcType="INTEGER" />
+		<result column="uname" property="uname" jdbcType="VARCHAR" />
+		<result column="unumber" property="unumber" jdbcType="INTEGER" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		id, uname, unumber
@@ -80,8 +80,8 @@
 		<collection property="courseInfos" javaType="list"
 			ofType="CourseInfo">
 			<id property="id" column="course_id" jdbcType="INTEGER" />
-			<baseResult property="cname" column="cname" jdbcType="VARCHAR" />
-			<baseResult property="caddress" column="caddress" jdbcType="VARCHAR" />
+			<result property="cname" column="cname" jdbcType="VARCHAR" />
+			<result property="caddress" column="caddress" jdbcType="VARCHAR" />
 		</collection>
 
 

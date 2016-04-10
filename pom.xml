@@ -203,14 +203,39 @@
 			<version>1.0.0</version>
 		</dependency>
 		<!--ehcache缓存结束-->
+
+
+		<!--RxJava-->
 		<dependency>
 			<groupId>io.reactivex</groupId>
 			<artifactId>rxjava</artifactId>
 			<version>1.1.2</version>
 		</dependency>
 
+		<!--个推推送-->
+		<dependency>
+			<groupId>com.gexin.platform</groupId>
+			<artifactId>gexin-rp-sdk-http</artifactId>
+			<version>4.0.1.0</version>
+		</dependency>
+
+
+		<!--redis-->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>1.0.2.RELEASE</version>
+		</dependency>
+
 	</dependencies>
 
+
+	<repositories>
+		<repository>
+			<id>getui-nexus</id>
+			<url>http://mvn.gt.igexin.com/nexus/content/repositories/releases/</url>
+		</repository>
+	</repositories>
 
 	<build>
 		<finalName>springmvc_mybatis_demo</finalName>

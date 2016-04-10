@@ -1,10 +1,8 @@
 package org.andy.shop.controller;
 
 import com.google.gson.Gson;
+import org.andy.shop.model.CourseInfo;
 import org.andy.shop.model.UserInfo;
-import org.andy.shop.result.BaseResult;
-import org.andy.shop.result.ListResult;
-import org.andy.shop.result.ResponseListResult;
 import org.andy.shop.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +19,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("user")
-public class UserController {
+public class UserController extends BaseController {
     @Resource(name = "userService")
     private UserService userService;
 
@@ -30,15 +28,13 @@ public class UserController {
     public void showUserInfos(HttpServletRequest req, HttpServletResponse rep) throws IOException {
         rep.setContentType("text/plain;charset=utf-8");
         PrintWriter writer = rep.getWriter();
-        Gson gson = new Gson();
-        String sss = null;
-        List<UserInfo> userInfos = userService.getUsers();
-        sss = gson.toJson(userInfos);
-        writer.println(sss);
+        CourseInfo info = new CourseInfo();
+        info.setId(1);
+        info.setCaddress("dizhi");
+        info.setCname("woshi");
+        writer.println(generateResult(info));
         writer.flush();
         writer.close();
-
-
     }
 
 
@@ -54,19 +50,13 @@ public class UserController {
         writer.close();
 
     }
-    @RequestMapping(value = "/hello.do", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8" )
+    @RequestMapping(value = "/hello.do", method = RequestMethod.GET, produces = "application/json;charset=UTF-8" )
     @ResponseBody
     public String hello(@RequestParam(value = "a",required = false) String a, HttpServletRequest request, HttpServletResponse response) {
         Gson gson = new Gson();
         System.out.println(a);
         String sss = null;
         List<UserInfo> userInfos = userService.getUsers();
-        ListResult listResult = new ListResult();
-        listResult.setList(userInfos);
-        ResponseListResult baseResult = new ResponseListResult();
-        baseResult.setObject(listResult);
-        sss = gson.toJson(baseResult);
-        return sss;
-
+        return generateResult(userInfos);
     }
 }

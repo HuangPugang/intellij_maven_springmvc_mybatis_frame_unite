@@ -4,8 +4,8 @@
   <cache/>
   <resultMap id="BaseResultMap" type="org.andy.shop.model.CourseInfo" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <baseResult column="cname" property="cname" jdbcType="VARCHAR" />
-    <baseResult column="caddress" property="caddress" jdbcType="VARCHAR" />
+    <result column="cname" property="cname" jdbcType="VARCHAR" />
+    <result column="caddress" property="caddress" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, cname, caddress
