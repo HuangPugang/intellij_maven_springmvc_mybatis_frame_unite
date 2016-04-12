@@ -4,15 +4,19 @@ import com.google.gson.Gson;
 import org.andy.shop.model.CourseInfo;
 import org.andy.shop.model.UserInfo;
 import org.andy.shop.service.UserService;
+import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -23,6 +27,8 @@ public class UserController extends BaseController {
     @Resource(name = "userService")
     private UserService userService;
 
+    @Autowired
+    private HttpServletRequest request;
     @RequestMapping(value = "/showInfos.do", method = RequestMethod.GET)
     @ResponseBody
     public void showUserInfos(HttpServletRequest req, HttpServletResponse rep) throws IOException {
@@ -58,5 +64,71 @@ public class UserController extends BaseController {
         String sss = null;
         List<UserInfo> userInfos = userService.getUsers();
         return generateResult(userInfos);
+    }
+
+
+    /**
+     * 文件上传
+     *
+     * @param file
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/fileUpload.do", method = RequestMethod.POST)
+    public void fileUpload(@RequestParam("file") MultipartFile file,
+                           HttpServletRequest request, HttpServletResponse response)
+            throws IOException {// 此处参数与表单参数一致
+        System.out.println(request.getParameter("versionName")+request.getParameter("apkSize"));
+        if (!file.isEmpty()) {
+            try {
+                String filePath = request.getSession().getServletContext()
+                        .getRealPath("/")
+                        + "upload/" + file.getOriginalFilename();
+                System.out.println(filePath);
+                File destFile = new File(filePath);
+                FileUtils
+                        .copyInputStreamToFile(file.getInputStream(), destFile);
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
+        }
+
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter writer = response.getWriter();
+        writer.write("哈哈");
+        writer.flush();
+    }
+
+    /**
+     * 多文件上传
+     *
+     * @return
+     */
+    @RequestMapping(value = "/mulitiFilesUpload.do", method = RequestMethod.POST)
+    public String filesUpload(@RequestParam("files") MultipartFile[] files) {// 此处参数与表单参数一致
+        // 判断file数组不能为空并且长度大于0
+        if (files != null && files.length > 0) {
+            // 循环获取file数组中得文件
+            for (int i = 0; i < files.length; i++) {
+                MultipartFile file = files[i];
+                // 保存文件
+                // 判断文件是否为空
+                if (!file.isEmpty()) {
+                    try {
+                        // 文件保存路径
+                        String filePath = request.getSession()
+                                .getServletContext().getRealPath("/")
+                                + "upload/" + file.getOriginalFilename();
+                        // 转存文件
+                        File destFile = new File(filePath);
+                        FileUtils.copyInputStreamToFile(file.getInputStream(),
+                                destFile);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return "index";
     }
 }
