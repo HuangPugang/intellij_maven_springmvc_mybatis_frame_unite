@@ -42,12 +42,12 @@ public class TheFirstPush {
             template.setAppkey(appKey);                         //应用APPKEY
 
             //通知属性设置：如通知的标题，内容
-            template.setTitle("此处填写通知标题");                    // 通知标题
-            template.setText("此处填写通知内容");                 // 通知内容
+            template.setTitle("我是标题");                    // 通知标题
+            template.setText("我是内容");                 // 通知内容
             template.setLogo("push.png");               // 通知图标，需要客户端开发时嵌入
-            template.setIsRing(false);                  // 收到通知是否响铃，可选，默认响铃
+            template.setIsRing(true);                  // 收到通知是否响铃，可选，默认响铃
 //          template.setIsVibrate(true);                    // 收到通知是否震动，可选，默认振动
-            template.setIsClearable(true);              // 通知是否可清除，可选，默认可清除
+            template.setIsClearable(false);              // 通知是否可清除，可选，默认可清除
 
             template.setTransmissionType(2);                // 收到消息是否立即启动应用，1为立即启动，2则广播等待客户端自启动
             template.setTransmissionContent("你需要透传的内容");  // 透传内容（点击通知后SDK将透传内容传给你的客户端，需要客户端做相应开发）
